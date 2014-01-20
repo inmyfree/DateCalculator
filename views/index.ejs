@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>日期计算器</title>
+    <meta content="日期,计算器,应用" name="Keywords">
+    <meta content="日期,计算器,应用" name="Description">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+    <script type="text/javascript" src="javascripts/admin.js"></script>
+</head>
+
+<body>
+
+
+<div class="box">
+    <div class="top"></div>
+    <div id="main-page">
+        <div class="main">
+
+            <div id="page_tab1" class="page">
+
+
+                <table width="407" align="center" cellpadding="0" cellspacing="0" id="ipt-calc">
+                    <tr>
+                        <th width="59" height="33" align="right">
+                            <label id="save-type" style="font-size:12px; text-align:right;">和：</label>                              </th>
+                        <td width="346" height="33" align="left" >
+                            <input size="8" id="SY" value="2014"  class ="rc2" onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'"> 年
+                            <input class ="rc2"   id="SM" value="01" onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'" > 月
+                            <input class ="rc2" id="SD" value="19" onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'" > 日
+                            <span style="font-size:12px; ">(默认为今天)</span>                             </td>
+                    </tr>
+                    <tr>
+                        <th height="28" align="right">
+                            <label id="fixed-date" style="font-size:12px">相差：</label>                                </th>
+                        <td align="left">
+                            <input id=decday value=10 class ="rc" onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'"/> 天
+                            <span style="font-size:12px">（输入负数则往前计算）</span>                                </td>
+                    </tr>
+                    <tr>
+                        <th height="38" align="right">
+                            <label id="date" style="font-size:12px; margin-left:5px; margin-top:7px; float:right">结果<span style="font-size:12px">：</span></label>                                </th>
+                        <td>
+                            <div class="link" id="date-combobox" /><span id="result1" ></span>                                </td>
+                    </tr>
+                    <tr class="buttonStrip">
+                        <th height="51" colspan="2" >
+                            <div class="tt"><a href="javascript:void(0);"  onclick="cala();" ><img src="images/ants.png" width="156" height="41px;"/></a></div></th>
+                    </tr>
+                </table>
+
+
+
+
+            </div>
+            <div class="hr"></div>
+            <div class="man">
+                <table width="407" height="159" align="center" cellpadding="0" cellspacing="0" id="result-calc">
+                    <tr>
+                        <th width="77" height="38" align="right"><label id="bi" style="font-size:12px">第一时间：</label></th>
+                        <td colspan="2" align="left"><input name="Input" class ="rc2" id=SY2   onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'" value="2014" />
+                            年
+                            <input name="Input2" class ="rc2" id=SM2  onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'" value="01" />
+                            月
+                            <input name="Input2" class ="rc2" id=SD2  onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'" value="19" />
+                            日 <span style="font-size:12px; ">(默认为今天)</span></td>
+                    </tr>
+                    <tr>
+                        <th height="38" align="right"><label id="bit" >第二时间：</label></th>
+                        <td colspan="2" align="left"><input name="Input2" class ="rc2" id=SY3 onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'"  value="2014" />
+                            年
+                            <input name="Input2" class ="rc2" id=SM3 onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'" value="02" />
+                            月
+                            <input name="Input2" class ="rc2" id=SD3 onmouseover="this.style.backgroundPosition='left -20px'" onmouseout="this.style.backgroundPosition='left top'" value="01"/>
+                            日</td>
+                    </tr>
+                    <tr>
+                        <th height="30" align="right"> <label >相 差：</label>            </th>
+                        <td width="250"><span id="result2"></span></td>
+                        <td width="78"><div align="left"><span style="margin-top:17px; padding-top:0px;"> &nbsp;天</span></div></td>
+                    </tr>
+                    <tr class="buttonStrip">
+                        <th height="51" colspan="3"> <div class="tt"><a href="javascript:void(0);"  onclick="calb();"><img src="images/ants.png" width="156" height="41"/></a> </div></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--/pannel-->
+<script type="text/javascript" defer=true>
+
+    var hzWeek = new Array("日", "一", "二", "三", "四", "五", "六", "日");
+    function cweekday(wday) {
+        return hzWeek[wday];
+    }
+    function cala() {
+        y = document.getElementById("SY").value; m = document.getElementById("SM").value;
+        d = document.getElementById("SD").value;
+        ddd = document.getElementById("decday").value;
+        ttt = new Date(y, m - 1, d).getTime() + ddd * 24000 * 3600;
+        theday = new Date();
+        theday.setTime(ttt);
+        document.getElementById("result1").innerHTML = theday.getFullYear() + "年" + (1 + theday.getMonth()) + "月" + theday.getDate() + "日" + "星期" + cweekday(theday.getDay());
+    }
+    function calb() {
+        y2 = document.getElementById("SY2").value;
+        m2 = document.getElementById("SM2").value;
+        d2 = document.getElementById("SD2").value;
+        y3 = document.getElementById("SY3").value;
+        m3 = document.getElementById("SM3").value;
+        d3 = document.getElementById("SD3").value;
+        day2 = new Date(y2, m2 - 1, d2);
+        day3 = new Date(y3, m3 - 1, d3);
+        document.getElementById("result2").innerHTML = (day3 - day2) / 86400000;
+
+    }
+
+</script>
+</body>
+</html>
